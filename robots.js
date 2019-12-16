@@ -5,7 +5,7 @@ var Channels = require("./Channels");
 var tasks = require("./task");
 const logger = require('./util/logger');
 const SkypeChannel = require('./channel/SkypeChannel');
-const SlackChannel = require('./channel/SlackChannel');
+const HubotChannel = require('./channel/HubotChannel');
 
 class Robots {
     constructor(options) {
@@ -75,7 +75,7 @@ class Robots {
                 Channels.register(name, channel)
             }
             if (type == 'hubot') {
-                let channel = new SlackChannel();
+                let channel = new HubotChannel();
                 Channels.register(name, channel)
             }
         });
@@ -88,7 +88,12 @@ class Robots {
 
 }
 
-module.exports = Robots
-
+exports.loadBots = (options)=>{
+    return new Robots(options);
+};
+exports.Task = tasks.Task;
+exports.Channel =  require('./Channel');
+exports.Logger = logger;
+exports.ShellExecutor = require('./util/shell_executor');
 
 

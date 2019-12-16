@@ -4,7 +4,7 @@ var path = require('path');
 const Channel = require('../Channel.js');
 const logger = require('../util/logger');
 
-class SlackChannel extends Channel {
+class HubotChannel extends Channel {
 
     constructor(){
         super();
@@ -59,4 +59,4 @@ class SlackChannel extends Channel {
     }
 }
 
-module.exports = SlackChannel
+module.exports = HubotChannel
