@@ -34,7 +34,7 @@ class Robots {
         server.use(restify.plugins.queryParser());  //get Query parameter by req.query.parametername
 
         server.get('/logs/*', restify.plugins.serveStatic({
-            directory: __dirname
+            directory: path.resolve(".")
         }));
         // Listen for messages from users 
         server.post('/:channel/messages', (req, res, next) => {
