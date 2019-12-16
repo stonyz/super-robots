@@ -28,6 +28,8 @@ class HubotChannel extends Channel {
                 that.run(resp);
             });
         };
+
+        this.robot = robot;
     }
 
     run(resp) {
@@ -54,8 +56,9 @@ class HubotChannel extends Channel {
         }
     }
 
-    sendMessage (address, message) {
-
+    //the roomId
+    sendMessage (channleId, message) {
+        this.robot.messageRoom(channleId, message);
     }
 }
 

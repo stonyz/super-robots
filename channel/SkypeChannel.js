@@ -5,6 +5,7 @@ const Channel = require('../Channel.js');
 class SkypeChannel extends Channel {
     constructor(appId, appPassword) {
         super();
+        this.serviceUrl = 'https://smba.trafficmanager.net/apis/';
         this.name = 'skype';
         this.appId = appId;
         this.appPassword = appPassword;
@@ -52,6 +53,8 @@ class SkypeChannel extends Channel {
         messageText = messageText.replace(/<at.*>.*<\/at>/g, "").trim();
         messageText = messageText.replace(/\s+/g, " ");
         logger.info('Incoming Msg:' + messageText + ' from:' + JSON.stringify(fromAddress));
+
+        this.serviceUrl = fromAddress.serviceUrl;
         if (messageText.indexOf("Edited previous message") === 0) {
             logger.info('Ingore updated message');
             return;
@@ -60,8 +63,6 @@ class SkypeChannel extends Channel {
         if (this.isMentionAll(session.message)) {
             return session.send("Yeah, I'm here.");
         }
-
-        var fromAddress = session.message.address;
       
         const userProfile = {
             userId: fromAddress.user.id,
@@ -84,11 +85,16 @@ class SkypeChannel extends Channel {
         return false;
     }
 
-    sendMessage(address, message) {
-        if ((typeof address) === "string") {
-            address = JSON.parse(address);
-        }
-
+    //ChannelId is the the conversionId
+    sendMessage(channelId, message) {
+        const address = {
+            "bot": {},
+            "conversation": {
+                "id":  channelId
+            },
+            "serviceUrl": this.serviceUrl,
+        };
+        
         var msg = new builder.Message().address(address);
         msg.text(message);
         msg.textLocale('en-US');
