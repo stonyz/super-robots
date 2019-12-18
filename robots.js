@@ -45,7 +45,7 @@ class Robots {
 
         });
 
-        server.post('/:channel/callback', function (req, res, next) {
+        server.post('/:channel/messageSend', function (req, res, next) {
             var toAddress = req.body && req.body.to;
             if (!toAddress) {
                 toAddress = req.params.to;
@@ -66,24 +66,41 @@ class Robots {
             res.send("send message to bot successfull!");
         });
 
+        this.server = server;
 
         this.channels.forEach((channelJson) => {
-            const type = channelJson.type;
-            const name = channelJson.name;
-            if (type == 'skype') {
-                let channel = new SkypeChannel(channelJson.appId, channelJson.password);
-                Channels.register(name, channel)
-            }
-            if (type == 'hubot') {
-                let channel = new HubotChannel();
-                Channels.register(name, channel)
-            }
+            this.registerChannel(channelJson);
         });
         //load extra channel
         Channels.loadExt(this.extChannelPath);
         Commands.load(this.commandsPath);
 
         tasks.load(this.tasksPath);
+    }
+
+    registerChannel(channelJson) {
+        const type = channelJson.type;
+        const name = channelJson.name;
+        if (type == 'skype') {
+            let channel = new SkypeChannel(name, channelJson.appId, channelJson.password);
+            Channels.register(name, channel);
+        }
+        if (type == 'hubot') {
+            let channel = new HubotChannel(name, channelJson.token);
+            Channels.register(name, channel);
+        }
+    }
+
+    addChannel(channel){
+        Channels.register(channel.name, channel);
+    }
+
+    setUrlHandeler(uri,method, func){
+        if (method ==='get'){
+            this.server.get(uri, func)
+        }else if (method ==='post'){
+            this.server.post(uri,func);
+        }
     }
 
 }

@@ -6,13 +6,15 @@ const logger = require('../util/logger');
 
 class HubotChannel extends Channel {
 
-    constructor(){
+    constructor(name, token){
         super();
-        this.name = 'slack';
+        this.name =  name;
+        this.token = token;
     }
 
     start() {
         var hubot = require('hubot');
+        process.env.HUBOT_SLACK_TOKEN = this.token;
         var robot = hubot.loadBot(undefined, "slack", false, "", false);
         robot.adapter.once('connected', function () {
             loadScripts(robot);

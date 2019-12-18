@@ -3,10 +3,10 @@ const logger = require('../util/logger');
 const Channel = require('../Channel.js');
 
 class SkypeChannel extends Channel {
-    constructor(appId, appPassword) {
+    constructor(name, appId, appPassword) {
         super();
         this.serviceUrl = 'https://smba.trafficmanager.net/apis/';
-        this.name = 'skype';
+        this.name = name;
         this.appId = appId;
         this.appPassword = appPassword;
         this.handelImcomingMsg = this.handelImcomingMsg.bind(this);
