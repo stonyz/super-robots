@@ -42,5 +42,5 @@ robots.start();
 1. add channels to the folder ./channel
 1. add tasks to the folder ./tasks
 
-**NOTE: You can specify the folder for commands/channels/tasks ** 
+**NOTE: You can specify the folder for commands/channels/tasks** 
 
