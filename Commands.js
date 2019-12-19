@@ -18,7 +18,7 @@ exports.load = (filepath) => {
             const Cmd = require(full);
             const instance = new Cmd()
             console.log(`       ${instance.name}`)
-            commands[instance.name] = instance;
+            add(instance);
         } catch (e) {
             console.log(e);
         }
@@ -32,3 +32,19 @@ exports.getCommand = (name) => {
     }
     return commands['unknown'];
 }
+
+function add(command){
+    commands[command.name] = command;
+}
+
+class Unknown {
+    constructor(){
+        this.name = 'unknown';
+    }
+    run (option, callback) {
+        var errorMsg = "Sorry, I don't understand!";
+        return callback(errorMsg);
+    }
+}
+add(new Unknown());
+
