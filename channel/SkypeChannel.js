@@ -94,6 +94,10 @@ class SkypeChannel extends Channel {
             },
             "serviceUrl": this.serviceUrl,
         };
+
+        if(message.length>6000){
+            message = message.substring(message.length-6000);
+        }
         
         var msg = new builder.Message().address(address);
         msg.text(message);

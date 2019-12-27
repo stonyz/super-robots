@@ -1,6 +1,6 @@
 {
     "name": "super-robots",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "can run mulipt hubots and skype bot",
     "main": "robots.js",
     "scripts": {
