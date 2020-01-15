@@ -4,6 +4,7 @@ class Channel {
         
     }
     runCommand(userProfile, messageText, replier) {
+        messageText = messageText.replace(/\s*,\s*/g,','); //remove the space before/after comma
         var phases = messageText.split(" ");
         var cmd = phases[0];
         var argv = phases.slice(1);
