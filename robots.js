@@ -62,8 +62,12 @@ class Robots {
             const channelName = req.params.channel;
             const channel = Channels.getChannel(channelName);
 
-            channel.sendMessage(toAddress, message);
-            res.send("send message to bot successfull!");
+            channel.sendMessage(toAddress, message, (err, errMsg)=>{
+                if (err){
+                    return res.send(errMsg);
+                }
+                res.send("send message to bot successfull!");
+            });
         });
 
         this.server = server;

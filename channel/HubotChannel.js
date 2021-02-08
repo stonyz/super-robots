@@ -59,8 +59,9 @@ class HubotChannel extends Channel {
     }
 
     //the roomId
-    sendMessage (channleId, message) {
+    sendMessage (channleId, message, cb) {
         this.robot.messageRoom(channleId, message);
+        cb && cb();
     }
 }
 

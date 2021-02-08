@@ -86,7 +86,7 @@ class SkypeChannel extends Channel {
     }
 
     //ChannelId is the the conversionId
-    sendMessage(channelId, message) {
+    sendMessage(channelId, message, cb) {
         const address = {
             "bot": {},
             "conversation": {
@@ -103,6 +103,7 @@ class SkypeChannel extends Channel {
         msg.text(message);
         msg.textLocale('en-US');
         this.bot.send(msg);
+        cb && cb();
     }
 }
 module.exports = SkypeChannel

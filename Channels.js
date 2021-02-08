@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const async = require('async')
+const NullChannel = require('./channel/NullChannel');
 
 var channels = {}
 
@@ -36,7 +37,7 @@ exports.getChannel = (name) => {
     if (cmd) {
         return cmd;
     }
-    return null;
+    return new NullChannel();
 }
 
 function exists (name) {
