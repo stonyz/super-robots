@@ -37,6 +37,16 @@ function add(command){
     commands[command.name] = command;
 }
 
+class ChannelInfo {
+    constructor(){
+        this.name = 'channelInfo';
+    }
+    run (option, callback) {
+        const channelInfoAsStr = JSON.stringify( option.userProfile);
+        return callback(channelInfoAsStr);
+    }
+}
+
 class Unknown {
     constructor(){
         this.name = 'unknown';
@@ -46,5 +56,6 @@ class Unknown {
         return callback(errorMsg);
     }
 }
+add(new ChannelInfo());
 add(new Unknown());
 

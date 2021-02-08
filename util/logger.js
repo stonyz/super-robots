@@ -6,7 +6,7 @@ const myFormat = printf(info => {
   });
 
 const logger = createLogger({
-    level: 'info',
+    level: process.env.SUPERROBOTS_LOG_LEVEL || 'info',
     format: combine(
         // label({ label: '' }),
         timestamp(),
