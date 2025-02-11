@@ -14,6 +14,13 @@ class Robots {
         this.extChannelPath = options.extChannelPath;
         this.commandsPath = options.commandsPath;
         this.tasksPath = options.tasksPath;
+
+        if (options.baseUrlOfLLM) {
+            process.env.BASE_URL_OF_LLM = options.baseUrlOfLLM;
+        }
+        if (options.enableLLM) {
+            process.env.ENABLE_LLM = options.enableLLM;
+        }
     }
 
     start() {
